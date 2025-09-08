@@ -47,3 +47,10 @@ After conducting our analysis, we noticed:
 
 
 - Churners have a higher monthly charge rate.
+
+## Modeling:
+In our churn analysis, Logistic Regression, Random Forest, and XGBoost were compared. Logistic Regression achieved the highest recall, meaning it was more effective at identifying customers likely to churn. Random Forest and XGBoost performed better in terms of overall discrimination (higher AUC), but were more conservative, leading to lower recall.
+
+
+## Future Work:
+Testing ensemble approaches that combine Logistic Regression’s strength in recall with tree models’ strength in AUC.

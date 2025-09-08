@@ -2,8 +2,48 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 import os
+from sklearn.metrics import (accuracy_score ,
+                            recall_score,
+                            confusion_matrix, 
+                            precision_score,
+                            f1_score, 
+                            accuracy_score,
+                            classification_report,
+                            roc_curve,
+                            roc_auc_score,
+                           auc)
 
 
+def plot_confusion_matrix(y_test, y_pred):
+    logreg_conf_matrix = confusion_matrix(y_test, y_pred) 
+    plt.figure(figsize = (4,4)) 
+    sns.set(font_scale=1.4) 
+    ax = sns.heatmap(logreg_conf_matrix, cmap='Blues',annot=True,
+                    fmt='d', square=True,
+                    xticklabels=['loyal (0)', 'churn (1)'],
+                        yticklabels=['loyal (0)', 'churn (1)']) 
+    ax.set(xlabel='Predicted', ylabel='Actual') 
+    ax.invert_yaxis() 
+    ax.invert_xaxis()
+
+def plot_roc_auc(y_test, y_proba):
+    fpr, tpr, thresholds = roc_curve(y_test, y_proba)
+
+    # Compute AUC
+    roc_auc = auc(fpr, tpr)
+
+    # Plot
+    plt.figure(figsize=(4,4))
+    plt.plot(fpr, tpr, color='darkorange', lw=2,
+            label=f'ROC curve (AUC = {roc_auc:.2f})')
+    plt.plot([0, 1], [0, 1], color='navy', lw=2, linestyle='--')  # random guess line
+    plt.xlim([0.0, 1.0])
+    plt.ylim([0.0, 1.05])
+    plt.xlabel('False Positive Rate')
+    plt.ylabel('True Positive Rate (Recall)')
+    plt.title('Receiver Operating Characteristic (ROC)')
+    plt.legend(loc="lower right")
+    plt.show()
 
 def show_feature_stats(feature, target, data, show_all= True):
     print(f"Distribution of {feature} is:")
